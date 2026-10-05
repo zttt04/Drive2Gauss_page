@@ -1,0 +1,130 @@
+window.HELP_IMPROVE_VIDEOJS = false;
+
+// More Works Dropdown Functionality
+function toggleMoreWorks() {
+    const dropdown = document.getElementById('moreWorksDropdown');
+    const button = document.querySelector('.more-works-btn');
+    
+    if (dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    } else {
+        dropdown.classList.add('show');
+        button.classList.add('active');
+    }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const container = document.querySelector('.more-works-container');
+    const dropdown = document.getElementById('moreWorksDropdown');
+    const button = document.querySelector('.more-works-btn');
+    
+    if (container && !container.contains(event.target)) {
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    }
+});
+
+// Close dropdown on escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const dropdown = document.getElementById('moreWorksDropdown');
+        const button = document.querySelector('.more-works-btn');
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    }
+});
+
+// Scroll to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+    const scrollButton = document.querySelector('.scroll-to-top');
+    if (window.pageYOffset > 300) {
+        scrollButton.classList.add('visible');
+    } else {
+        scrollButton.classList.remove('visible');
+    }
+});
+
+// Play only the video group currently near the viewport. This avoids decoding
+// every demo on the page at once, which is especially costly on remote hosts.
+function setupViewportVideoPlayback() {
+    const figures = Array.from(document.querySelectorAll('figure')).filter(function(figure) {
+        return figure.querySelector('video') && !figure.classList.contains('project-demo-figure');
+    });
+    const visibleFigures = new Set();
+
+    function videosIn(figure) {
+        return Array.from(figure.querySelectorAll('video'));
+    }
+
+    function playFigure(figure) {
+        const videos = videosIn(figure);
+        videos.forEach(function(video) {
+            video.play().catch(function() {});
+        });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleFigures.add(entry.target);
+                if (!document.hidden) playFigure(entry.target);
+            } else {
+                visibleFigures.delete(entry.target);
+                videosIn(entry.target).forEach(function(video) {
+                    video.pause();
+                });
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '80px 0px'
+    });
+
+    figures.forEach(function(figure) {
+        videosIn(figure).forEach(function(video) {
+            video.pause();
+        });
+        observer.observe(figure);
+    });
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            figures.forEach(function(figure) {
+                videosIn(figure).forEach(function(video) { video.pause(); });
+            });
+        } else {
+            visibleFigures.forEach(playFigure);
+        }
+    });
+}
+
+$(document).ready(function() {
+    // Check for click events on the navbar burger icon
+
+    var options = {
+		slidesToScroll: 1,
+		slidesToShow: 1,
+		loop: true,
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+    }
+
+	// Initialize all div with carousel class
+    var carousels = bulmaCarousel.attach('.carousel', options);
+	
+    bulmaSlider.attach();
+    
+    setupViewportVideoPlayback();
+
+})

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos">
+  <meta name="description" content="Drive2Gauss converts generated RGB, metric depth, and dynamic flow into renderable dynamic 4D Gaussian scenes in a single feedforward pass.">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
+  <!-- TODO: List all authors -->
+  <meta name="author" content="Anonymous Authors">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="Anonymous Institution">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos">
+  <meta property="og:description" content="Drive2Gauss converts generated RGB, metric depth, and dynamic flow into renderable dynamic 4D Gaussian scenes in a single feedforward pass.">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Drive2Gauss - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="Anonymous Authors">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
+  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:title" content="Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos">
+  <meta name="twitter:description" content="Drive2Gauss converts generated RGB, metric depth, and dynamic flow into renderable dynamic 4D Gaussian scenes in a single feedforward pass.">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="Drive2Gauss - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos">
+  <meta name="citation_author" content="Anonymous Authors">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="CONFERENCE_NAME">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico?v=drive2gauss-title-strong">
+  <link rel="apple-touch-icon" href="static/images/apple-touch-icon.png?v=drive2gauss-title-strong">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css?v=quantitative-tables">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js?v=viewport-video-playback"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Drive2Gauss: FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos",
+    "description": "Drive2Gauss converts generated RGB, metric depth, and dynamic flow into renderable dynamic 4D Gaussian scenes in a single feedforward pass.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Anonymous Authors",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anonymous Institution"
+        }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CONFERENCE_OR_JOURNAL_NAME"
+    },
+    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
+    "abstract": "Generating reusable driving environments requires both controllable future observations and an explicit representation that supports rendering from different viewpoints, yet existing methods still recover explicit scenes from generated RGB videos through optimization for each sequence. To overcome these limitations, we present Drive2Gauss, a feedforward framework that converts jointly generated RGB, metric depth, and dynamic flow into dynamic 4D Gaussian scenes. A Multimodal Video Generator predicts the three modalities from reference multiview images and future control signals. Furthermore, we introduce a Gaussian Query Decoder that uses depth to initialize sparse 3D queries and flow to associate the queries across time, and integrates appearance information through spatiotemporal feature aggregation and iterative query refinement. The reconstruction stage operates in a single feedforward pass without optimization for each scene. Extensive results on nuScenes demonstrate that our approach attains an FID of 6.38 and an FVD of 12.43 for future RGB generation, a PSNR of 29.91 dB when reconstructing its generated observations, and supports both direct rendering under lateral camera shifts and downstream video fixing.",
+    "citation": "BIBTEX_CITATION_HERE",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "RESEARCH_AREA_1"
+      },
+      {
+        "@type": "Thing", 
+        "name": "RESEARCH_AREA_2"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Anonymous Institution",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/YOUR_TWITTER_HANDLE",
+      "https://github.com/YOUR_GITHUB_USERNAME"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <!-- TODO: Replace with your lab's related works -->
+        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
+          <div class="work-info">
+            <!-- TODO: Replace with actual paper title -->
+            <h5>Paper Title 1</h5>
+            <!-- TODO: Replace with brief description -->
+            <p>Brief description of the work and its main contribution.</p>
+            <!-- TODO: Replace with venue and year -->
+            <span class="work-venue">Conference/Journal 2024</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <!-- TODO: Add more related works or remove extra items -->
+        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 2</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 3</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title">
+              <span class="visually-hidden">Drive2Gauss: </span>
+              <span class="publication-logo-crop" aria-hidden="true">
+                <img src="static/images/drive2gauss_logo.png?v=pptx-v3" alt="">
+              </span>
+              <span class="publication-title-text">FeedForward 4D Gaussian Reconstruction from Multimodal Generative Driving Videos</span>
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Anonymous Authors</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Anonymous Institution</span>
+            </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <span class="button is-normal is-rounded is-dark coming-soon-button" aria-disabled="true">
+                          <span class="icon"><i class="fas fa-code"></i></span>
+                          <span class="resource-button-copy">
+                            <span>Code</span>
+                            <small>Coming Soon</small>
+                          </span>
+                        </span>
+                      </span>
+
+                      <span class="link-block">
+                        <span class="button is-normal is-rounded is-dark coming-soon-button" aria-disabled="true">
+                          <span class="icon"><i class="fas fa-database"></i></span>
+                          <span class="resource-button-copy">
+                            <span>Dataset</span>
+                            <small>Coming Soon</small>
+                          </span>
+                        </span>
+                      </span>
+
+                      <span class="link-block">
+                        <span class="button is-normal is-rounded is-dark coming-soon-button" aria-disabled="true">
+                          <span class="icon"><i class="fas fa-cubes"></i></span>
+                          <span class="resource-button-copy">
+                            <span>Checkpoints</span>
+                            <small>Coming Soon</small>
+                          </span>
+                        </span>
+                      </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Project demo -->
+<section class="section project-demo-section">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Demo Video</h2>
+    <figure class="project-demo-figure">
+      <video controls playsinline preload="metadata"
+             aria-label="Drive2Gauss demo showing multimodal generation, 4D Gaussian reconstruction, novel-view rendering, and video fixing">
+        <source src="static/videos/drive2gauss_demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </figure>
+  </div>
+</section>
+<!-- End project demo -->
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generating reusable driving environments requires both controllable future observations and an explicit representation that supports rendering from different viewpoints, yet existing methods still recover explicit scenes from generated RGB videos through optimization for each sequence. To overcome these limitations, we present Drive2Gauss, a feedforward framework that converts jointly generated RGB, metric depth, and dynamic flow into dynamic 4D Gaussian scenes. A Multimodal Video Generator predicts the three modalities from reference multiview images and future control signals. Furthermore, we introduce a Gaussian Query Decoder that uses depth to initialize sparse 3D queries and flow to associate the queries across time, and integrates appearance information through spatiotemporal feature aggregation and iterative query refinement. The reconstruction stage operates in a single feedforward pass without optimization for each scene. Extensive results on nuScenes demonstrate that our approach attains an FID of 6.38 and an FVD of 12.43 for future RGB generation, a PSNR of 29.91 dB when reconstructing its generated observations, and supports both direct rendering under lateral camera shifts and downstream video fixing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Method comparison -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Method Comparison</h2>
+        <figure class="method-figure method-comparison-figure">
+          <img src="static/images/method_comparison.png" loading="lazy"
+               alt="Comparison between optimization-based RGB-first reconstruction and the feedforward multimodal Drive2Gauss pipeline">
+          <figcaption>
+            Previous RGB-first methods require per-scene optimization, whereas Drive2Gauss jointly generates RGB,
+            metric depth, and dynamic flow for feedforward 4D Gaussian reconstruction.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method comparison -->
+
+
+<!-- Method overview -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Method Overview</h2>
+        <figure class="method-figure method-overview-figure">
+          <img src="static/images/method_overview.png" loading="lazy"
+               alt="Overview of the Drive2Gauss multimodal video generator and Gaussian query decoder">
+          <figcaption>
+            Drive2Gauss combines a multimodal future video generator with a Gaussian query decoder that performs
+            spatiotemporal feature aggregation and directly produces a dynamic 4D Gaussian representation.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method overview -->
+
+
+<!-- Multimodal generation -->
+<section class="section application-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Multimodal Video Generation</h2>
+        <p class="subtitle is-5">
+          Joint RGB, depth, and dynamic-flow generation across six surround-view cameras.
+        </p>
+        <figure class="multimodal-generation-figure">
+          <video muted loop playsinline preload="metadata"
+                 aria-label="Ten multimodal driving video examples with RGB, depth, and dynamic flow">
+            <source src="static/videos/multimodal_generation_10cases_2x3_8hz.mp4?v=selected10" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End multimodal generation -->
+
+<!-- Multimodal dataset -->
+<section class="section hero is-light application-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Multimodal Dataset</h2>
+        <p class="subtitle is-5">
+          Ground-truth RGB, metric depth, and dynamic flow across six surround-view cameras.
+        </p>
+        <figure class="multimodal-dataset-figure">
+          <video muted loop playsinline preload="metadata"
+                 aria-label="Forty-five multimodal ground-truth driving clips arranged as three consecutive walls">
+            <source src="static/videos/multimodal_dataset_45clips_3x5_8hz.mp4?v=sky100" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End multimodal dataset -->
+
+<!-- Feedforward rendering -->
+<section class="section hero is-light application-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Feedforward 4D Gaussian Reconstruction</h2>
+        <p class="subtitle is-5">
+          Generated observations are converted into renderable 4D Gaussian scenes in a single feedforward pass.
+        </p>
+        <figure class="feedforward-rendering-figure">
+          <div class="comparison-video-label-row" aria-hidden="true">
+            <div class="comparison-video-label">Generated Observation</div>
+            <div class="comparison-video-label">Rendering</div>
+          </div>
+          <video muted loop playsinline preload="metadata"
+                 aria-label="Feedforward reconstruction and novel-view rendering examples">
+            <source src="static/videos/feedforward_rendering_19cases_8hz.mp4?v=selected19" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End feedforward rendering -->
+
+<!-- Novel-view rendering -->
+<section class="section application-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Novel-View Rendering</h2>
+        <p class="subtitle is-5">
+          DGGT and our method render novel views from the same generated video input.
+        </p>
+        <figure class="novel-view-rendering-figure">
+          <video muted loop playsinline preload="metadata"
+                 aria-label="Shared generated observation with synchronized DGGT and Drive2Gauss novel-view renderings">
+            <source src="static/videos/novel_view_comparison_12cases_8hz.mp4?v=inter-site-background" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End novel-view rendering -->
+
+<!-- Video fixing -->
+<section class="section hero is-light application-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Application to Video Fixing</h2>
+        <p class="subtitle is-5">
+          The reconstructed 4D Gaussian scene provides geometric guidance for restoring a degraded generated video.
+        </p>
+        <figure class="video-fixing-figure">
+          <div class="comparison-video-label-row" aria-hidden="true">
+            <div class="comparison-video-label">Degraded Video</div>
+            <div class="comparison-video-label">Fixed Video</div>
+          </div>
+          <video muted loop playsinline preload="metadata"
+                 aria-label="Degraded and fixed video comparison across twelve examples">
+            <source src="static/videos/video_fixing_12cases_8hz.mp4?v=white-divider" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video fixing -->
+
+<!-- Quantitative results -->
+<section class="section quantitative-results-section">
+  <div class="container quantitative-results-container">
+    <div class="has-text-centered">
+      <h2 class="title is-3">Quantitative Results</h2>
+      <p class="subtitle is-5">Hover over a table to enlarge it.</p>
+    </div>
+
+    <div class="quantitative-table-grid">
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table I</span><h3>Future Video Generation</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead><tr><th>Method</th><th>RGB</th><th>Depth</th><th>Flow</th><th>FID ↓</th><th>FVD ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Panacea</td><td>✓</td><td>×</td><td>×</td><td>16.96</td><td>139.00</td></tr>
+              <tr><td>MagicDrive</td><td>✓</td><td>×</td><td>×</td><td>16.20</td><td>217.94</td></tr>
+              <tr><td>Drive-WM</td><td>✓</td><td>×</td><td>×</td><td>15.80</td><td>122.70</td></tr>
+              <tr><td>WoVoGen</td><td>✓</td><td>×</td><td>×</td><td>27.60</td><td>417.70</td></tr>
+              <tr><td>Vista*</td><td>✓</td><td>×</td><td>×</td><td>13.97</td><td>112.65</td></tr>
+              <tr><td>DriveDreamer-2</td><td>✓</td><td>×</td><td>×</td><td>11.20</td><td>55.70</td></tr>
+              <tr><td>MagicDriveDiT</td><td>✓</td><td>×</td><td>×</td><td>20.91</td><td>94.84</td></tr>
+              <tr><td>UniScene</td><td>✓</td><td>×</td><td>×</td><td class="second-result">6.45</td><td>71.94</td></tr>
+              <tr><td>DiST-T</td><td>✓</td><td>✓</td><td>×</td><td>6.83</td><td class="second-result">22.67</td></tr>
+              <tr class="ours-row"><td>Drive2Gauss</td><td>✓</td><td>✓</td><td>✓</td><td class="best-result">6.38</td><td class="best-result">12.43</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table II</span><h3>Feedforward 4D Gaussian Reconstruction</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead><tr><th>Method</th><th>PSNR ↑</th><th>LPIPS ↓</th><th>SSIM ↑</th><th>FID ↓</th><th>FVD ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Panacea + DGGT</td><td>26.23</td><td>0.261</td><td>0.790</td><td>50.24</td><td>181.51</td></tr>
+              <tr><td>MagicDrive-V2 + DGGT</td><td class="second-result">28.12</td><td>0.230</td><td class="second-result">0.830</td><td>68.09</td><td>370.59</td></tr>
+              <tr><td>DiST-4D + DGGT</td><td>27.76</td><td class="second-result">0.200</td><td>0.825</td><td class="second-result">30.17</td><td class="second-result">90.70</td></tr>
+              <tr class="ours-row"><td>Drive2Gauss</td><td class="best-result">29.91</td><td class="best-result">0.101</td><td class="best-result">0.884</td><td class="best-result">12.85</td><td class="best-result">32.01</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table III</span><h3>Direct Novel-View Synthesis</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead>
+              <tr><th rowspan="2">Method</th><th colspan="2">±1 m</th><th colspan="2">±2 m</th><th colspan="2">±4 m</th></tr>
+              <tr><th>FID ↓</th><th>FVD ↓</th><th>FID ↓</th><th>FVD ↓</th><th>FID ↓</th><th>FVD ↓</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DreamDrive</td><td>72.20</td><td class="second-result">381.93</td><td>143.15</td><td>780.71</td><td>233.15</td><td>1271.42</td></tr>
+              <tr><td>Panacea + DGGT</td><td>142.32</td><td>664.29</td><td>190.57</td><td>844.70</td><td>251.93</td><td>1085.29</td></tr>
+              <tr><td>MagicDrive-V2 + DGGT</td><td>86.40</td><td>1032.22</td><td>109.34</td><td>1241.29</td><td>150.05</td><td>1481.17</td></tr>
+              <tr><td>DiST-T + DGGT</td><td class="second-result">53.44</td><td>562.22</td><td class="second-result">73.55</td><td class="second-result">744.32</td><td class="second-result">107.93</td><td class="best-result">956.98</td></tr>
+              <tr class="ours-row"><td>Drive2Gauss</td><td class="best-result">38.38</td><td class="best-result">281.27</td><td class="best-result">59.60</td><td class="best-result">605.65</td><td class="best-result">101.23</td><td class="second-result">1025.44</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table IV</span><h3>View Fixing</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead>
+              <tr><th rowspan="2">Method</th><th colspan="2">±1 m</th><th colspan="2">±2 m</th><th colspan="2">±4 m</th></tr>
+              <tr><th>FID ↓</th><th>FVD ↓</th><th>FID ↓</th><th>FVD ↓</th><th>FID ↓</th><th>FVD ↓</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DiST-S</td><td>10.12</td><td>45.14</td><td>12.97</td><td>68.80</td><td>17.57</td><td>105.29</td></tr>
+              <tr><td>GaussianDWM</td><td>8.36</td><td>44.50</td><td>11.27</td><td>68.17</td><td>18.81</td><td>116.40</td></tr>
+              <tr><td>WorldSplat</td><td class="second-result">8.25</td><td>40.17</td><td>11.26</td><td>47.41</td><td>13.38</td><td>64.07</td></tr>
+              <tr><td>RGB-D + SPVC</td><td>10.37</td><td class="second-result">25.99</td><td class="second-result">11.19</td><td class="second-result">30.68</td><td class="second-result">12.82</td><td class="second-result">41.29</td></tr>
+              <tr class="ours-row"><td>Drive2Gauss + SPVC</td><td class="best-result">6.68</td><td class="best-result">21.25</td><td class="best-result">7.85</td><td class="best-result">24.28</td><td class="best-result">9.00</td><td class="best-result">35.73</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table V</span><h3>Gaussian Query Decoder Ablation</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead><tr><th>Variant</th><th>PSNR ↑</th><th>SSIM ↑</th></tr></thead>
+            <tbody>
+              <tr><td>w/o Init Flow</td><td>27.89</td><td>0.814</td></tr>
+              <tr><td>w/o Iterative Refinement</td><td>28.03</td><td>0.827</td></tr>
+              <tr><td>w/o Cross-Attention</td><td>28.76</td><td>0.849</td></tr>
+              <tr class="ours-row"><td>Drive2Gauss (Full)</td><td class="best-result">29.91</td><td class="best-result">0.884</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="result-table-card" tabindex="0">
+        <header><span>Table VI</span><h3>Gaussian Query Number Sensitivity</h3></header>
+        <div class="result-table-scroll">
+          <table>
+            <thead><tr><th>Queries</th><th>PSNR ↑</th><th>SSIM ↑</th><th>Train Peak<br>Memory (GB)</th><th>Inference<br>Time (s)</th></tr></thead>
+            <tbody>
+              <tr><td>480K</td><td>28.87</td><td>0.811</td><td>45</td><td>0.96</td></tr>
+              <tr><td>720K</td><td>29.62</td><td>0.836</td><td>67</td><td>1.11</td></tr>
+              <tr class="ours-row"><td>960K</td><td class="best-result">29.91</td><td class="best-result">0.884</td><td>92</td><td>1.29</td></tr>
+              <tr><td>1200K</td><td>/</td><td>/</td><td>OOM</td><td>/</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- End quantitative results -->
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
