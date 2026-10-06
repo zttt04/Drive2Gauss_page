@@ -272,6 +272,39 @@ body {
   margin-right: 0.5rem;
 }
 
+.author-line {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.publication-author-list sup,
+.publication-affiliations sup {
+  margin-left: 0.12rem;
+  font-size: 0.68em;
+  vertical-align: super;
+}
+
+.publication-affiliations {
+  display: flex;
+  max-width: 920px;
+  margin: -0.5rem auto 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.1rem;
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.publication-affiliations span {
+  display: inline-block;
+}
+
+.publication-affiliations .corresponding-author {
+  flex-basis: 100%;
+}
+
 .publication-banner img {
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
