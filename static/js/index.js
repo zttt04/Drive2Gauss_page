@@ -54,60 +54,6 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Play only the video group currently near the viewport. This avoids decoding
-// every demo on the page at once, which is especially costly on remote hosts.
-function setupViewportVideoPlayback() {
-    const figures = Array.from(document.querySelectorAll('figure')).filter(function(figure) {
-        return figure.querySelector('video') && !figure.classList.contains('project-demo-figure');
-    });
-    const visibleFigures = new Set();
-
-    function videosIn(figure) {
-        return Array.from(figure.querySelectorAll('video'));
-    }
-
-    function playFigure(figure) {
-        const videos = videosIn(figure);
-        videos.forEach(function(video) {
-            video.play().catch(function() {});
-        });
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                visibleFigures.add(entry.target);
-                if (!document.hidden) playFigure(entry.target);
-            } else {
-                visibleFigures.delete(entry.target);
-                videosIn(entry.target).forEach(function(video) {
-                    video.pause();
-                });
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '80px 0px'
-    });
-
-    figures.forEach(function(figure) {
-        videosIn(figure).forEach(function(video) {
-            video.pause();
-        });
-        observer.observe(figure);
-    });
-
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            figures.forEach(function(figure) {
-                videosIn(figure).forEach(function(video) { video.pause(); });
-            });
-        } else {
-            visibleFigures.forEach(playFigure);
-        }
-    });
-}
-
 $(document).ready(function() {
     // Check for click events on the navbar burger icon
 
@@ -125,6 +71,4 @@ $(document).ready(function() {
 	
     bulmaSlider.attach();
     
-    setupViewportVideoPlayback();
-
 })
